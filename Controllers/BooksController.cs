@@ -60,6 +60,11 @@ namespace Library.Controllers
         // GET: Books/Create
         public IActionResult Create()
         {
+            var loggedUser = Request.Cookies["UserLogin"];
+            if (string.IsNullOrEmpty(loggedUser))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Name");
             return View();
         }
@@ -71,6 +76,11 @@ namespace Library.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,AuthorId")] Book book)
         {
+            var loggedUser = Request.Cookies["UserLogin"];
+            if (string.IsNullOrEmpty(loggedUser))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(book);
@@ -84,6 +94,11 @@ namespace Library.Controllers
         // GET: Books/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var loggedUser = Request.Cookies["UserLogin"];
+            if (string.IsNullOrEmpty(loggedUser))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -105,6 +120,11 @@ namespace Library.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,AuthorId")] Book book)
         {
+            var loggedUser = Request.Cookies["UserLogin"];
+            if (string.IsNullOrEmpty(loggedUser))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id != book.Id)
             {
                 return NotFound();
@@ -137,6 +157,11 @@ namespace Library.Controllers
         // GET: Books/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var loggedUser = Request.Cookies["UserLogin"];
+            if (string.IsNullOrEmpty(loggedUser))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return NotFound();

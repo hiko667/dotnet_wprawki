@@ -46,6 +46,11 @@ namespace Library.Controllers
         // GET: Authors/Create
         public IActionResult Create()
         {
+            var loggedUser = Request.Cookies["UserLogin"];
+            if (string.IsNullOrEmpty(loggedUser))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
 
@@ -56,6 +61,11 @@ namespace Library.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Author author)
         {
+            var loggedUser = Request.Cookies["UserLogin"];
+            if (string.IsNullOrEmpty(loggedUser))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(author);
@@ -68,6 +78,11 @@ namespace Library.Controllers
         // GET: Authors/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var loggedUser = Request.Cookies["UserLogin"];
+            if (string.IsNullOrEmpty(loggedUser))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return NotFound();
@@ -88,6 +103,11 @@ namespace Library.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Author author)
         {
+            var loggedUser = Request.Cookies["UserLogin"];
+            if (string.IsNullOrEmpty(loggedUser))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id != author.Id)
             {
                 return NotFound();
@@ -119,6 +139,11 @@ namespace Library.Controllers
         // GET: Authors/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var loggedUser = Request.Cookies["UserLogin"];
+            if (string.IsNullOrEmpty(loggedUser))
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (id == null)
             {
                 return NotFound();

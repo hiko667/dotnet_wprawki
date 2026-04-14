@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+namespace Library.Utility;
 
 public static class PasswordHasher
 {
