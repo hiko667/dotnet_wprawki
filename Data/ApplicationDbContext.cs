@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Library.Models;
 
-namespace Biblioteka.Data;
+namespace Library.Data;
 
 public class ApplicationDbContext : DbContext
 {
