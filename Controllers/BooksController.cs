@@ -20,10 +20,22 @@ namespace Library.Controllers
         }
 
         // GET: Books
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var applicationDbContext = _context.Books.Include(b => b.Author);
-            return View(await applicationDbContext.ToListAsync());
+            ViewData["TitleSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+
+            var books = _context.Books.Include(b => b.Author).AsQueryable();
+
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    books = books.OrderByDescending(b => b.Title);
+                    break;
+                default:
+                    books = books.OrderBy(b => b.Title);
+                    break;
+            }
+            return View(await books.ToListAsync());
         }
 
         // GET: Books/Details/5
@@ -160,5 +172,7 @@ namespace Library.Controllers
         {
             return _context.Books.Any(e => e.Id == id);
         }
+        
     }
+    
 }

@@ -4,12 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Ksiązki</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["TitleSortParm"]">
+                    Kolejność Sortowania
+                </a>
+            </th>
+            <th>Autor</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
     <thead>
         <tr>
             <th>
